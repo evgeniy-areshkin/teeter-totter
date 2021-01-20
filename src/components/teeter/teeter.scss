@@ -1,0 +1,45 @@
+.tt-teeter {
+  width: 800px;
+  height: 100%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column-reverse;
+}
+.tt-base {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 100px 200px 100px;
+  border-color: transparent transparent rgb(173, 173, 173) transparent;
+  margin: 0 auto;
+  z-index: 2;
+}
+.tt-plank {
+  width: 100%;
+  height: 10px;
+  background-color: rgb(173, 173, 173);
+  box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+  z-index: 1;
+  transition: all 1s ease;
+}
+.tt-figure-container {
+  position: relative;
+  width: 100%;
+  height: auto;
+  display: flex;
+  transition: all 1s ease;
+  .tt-figure-side {
+    position: relative;
+    margin-right: 60px;
+    &__left {
+      width: 50%;
+    }
+    &__right {
+      width: 50%;
+    }
+  }
+}
