@@ -20,8 +20,8 @@ export const actions = {
         }, 0)
         
         const totalForce = leftForce > rightForce ? 
-            ((leftForce - rightForce) / leftForce) * -100 :
-            ((rightForce - leftForce) / rightForce) * 100
+            (((leftForce - rightForce) / leftForce) * -100) / 2 :
+            (((rightForce - leftForce) / rightForce) * 100) / 2
 
         if(totalForce >= state.maxBalance) {
             commit('setBalance', state.maxBalance)
@@ -33,7 +33,7 @@ export const actions = {
             dispatch('figures/stopSimulation', null, { root: true })
             return
         }
-        commit('setBalance', totalForce / 2)
+        commit('setBalance', totalForce)
     },
     resetBalance({commit}) {
         commit('setBalance')

@@ -11,14 +11,15 @@ export default {
     shiftY: -window.innerHeight + 200,
     shiftX: 0,
     stepX: 25,
-    stepY: 10,
+    stepY: 10
   }),
   props: ['id', 'type', 'weight', 'color', 'positionX'],
   computed: {
-    ...mapState('figures', ['isOnPause', 'isEnded']),
+    ...mapState('figures', ['figures', 'isOnPause', 'isEnded']),
+    ...mapState('teeter', ['balance']),
     styles() {
       return `
-        transform: translate(0, ${this.shiftY}px);
+        transform: translate(${this.shiftY * (this.balance/100)}px, ${this.shiftY}px) scale(${1 + this.weight/10});
         left: ${this.shiftX}%;
         background-color: #${this.color};
         border-color: ${ this.type == 'triangle' ? `transparent transparent #${this.color} transparent` : 'none'};
@@ -35,7 +36,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions('figures', ['addFigure']),
+    ...mapActions('figures', ['addFigure', 'figuresInStack']),
     ...mapActions('teeter', ['calculateBalance']),
     ...mapMutations('figures', ['setFigureWeight']),
     updatePosition() {
@@ -74,10 +75,14 @@ export default {
       let acc = this.shiftX - this.stepX;
       this.shiftX = acc <= 0 ? 0 : acc
       this.setFigureWeight( {id: this.id, newPositionX: this.shiftX / this.stepX} );
+    },
+    increaseGameSpeed() {
+      this.stepY += this.figures.length * 2
     }
   },
   mounted() {
     this.updatePosition()
+    this.increaseGameSpeed()
   },
   created() {
     window.addEventListener('keydown', this.handleArrows);

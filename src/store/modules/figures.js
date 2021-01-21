@@ -20,8 +20,7 @@ export const state = {
     staticFigures: [],
     isOnPause: false,
     isInProgress: false,
-    isEnded: false,
-    index: 0
+    isEnded: false
 }
 
 export const mutations = {
