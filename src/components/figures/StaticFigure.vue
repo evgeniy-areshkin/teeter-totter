@@ -1,5 +1,5 @@
 <template>
-  <div :ref="getId" :style="styles" class="tt-figure tt-text" :class="[`tt-figure__${type}`]">{{weight}}</div>
+  <div :ref="getId" :style="styles" class="tt-figure tt-text" :class="[`tt-figure__${type}`]">{{weight}}Kg</div>
 </template>
 
 <script>
@@ -16,7 +16,7 @@ export default {
         left: ${this.positionX * 25}%;
         background-color: #${this.color};
         border-color: ${ this.type == 'triangle' ? `transparent transparent #${this.color} transparent` : 'none'};
-        transform: scale(${1 + this.weight/10});
+        transform: scale(${1 + this.weight / 10});
       `
     }
   },

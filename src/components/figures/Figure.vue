@@ -1,9 +1,9 @@
 <template>
-  <div :ref="getId" :style="styles" class="tt-figure tt-text" :class="[`tt-figure__${type}`]">{{weight}}</div>
+  <div :ref="getId" :style="styles" class="tt-figure tt-text" :class="[`tt-figure__${type}`]">{{weight}}Kg</div>
 </template>
 
 <script>
-import { mapState, mapMutations, mapActions } from "vuex";
+import { mapState, mapMutations, mapActions } from "vuex"
 
 export default {
   name: 'Figure',
@@ -19,11 +19,23 @@ export default {
     ...mapState('teeter', ['balance']),
     styles() {
       return `
-        transform: translate(${this.shiftY * (this.balance/100)}px, ${this.shiftY}px) scale(${1 + this.weight/10});
+        transform: ${this.figurePositionY};
         left: ${this.shiftX}%;
         background-color: #${this.color};
-        border-color: ${ this.type == 'triangle' ? `transparent transparent #${this.color} transparent` : 'none'};
+        border-color: ${this.borderColorForTriangle};
       `
+    },
+    figurePositionY() {
+      return `translate(${this.compensateRotation}px, ${this.shiftY}px) scale(${this.scaleByWeight})`
+    },
+    compensateRotation() {
+      return this.shiftY * (this.balance / 100)
+    },
+    scaleByWeight() {
+      return 1 + this.weight / 10
+    },
+    borderColorForTriangle() {
+      return this.type == 'triangle' ? `transparent transparent #${this.color} transparent` : 'none'
     },
     getId() {
       return `figure_${this.id}`
@@ -69,12 +81,12 @@ export default {
     moveFigureRight() {
       let acc = this.shiftX + this.stepX;
       this.shiftX = acc >= 100 ? 100 : acc
-      this.setFigureWeight( {id: this.id, newPositionX: this.shiftX / this.stepX} );
+      this.setFigureWeight( {id: this.id, newPositionX: this.shiftX / this.stepX} )
     },
     moveFigureLeft() {
       let acc = this.shiftX - this.stepX;
       this.shiftX = acc <= 0 ? 0 : acc
-      this.setFigureWeight( {id: this.id, newPositionX: this.shiftX / this.stepX} );
+      this.setFigureWeight( {id: this.id, newPositionX: this.shiftX / this.stepX} )
     },
     increaseGameSpeed() {
       this.stepY += this.figures.length * 2
@@ -85,10 +97,10 @@ export default {
     this.increaseGameSpeed()
   },
   created() {
-    window.addEventListener('keydown', this.handleArrows);
+    window.addEventListener('keydown', this.handleArrows)
   },
   destroyed() {
-    window.removeEventListener('keydown', this.handleArrows);
+    window.removeEventListener('keydown', this.handleArrows)
   }
 }
 
