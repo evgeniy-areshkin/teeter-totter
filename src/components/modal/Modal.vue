@@ -11,7 +11,7 @@
 
         <div class="modal-footer">
           <slot name="footer">
-            <button class="modal-default-button" @click="reset">
+            <button class="modal-default-button">
               Try Again
             </button>
           </slot>
@@ -22,21 +22,14 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
 
 export default {
   name: 'Modal',
-  computed: {
-    ...mapState('figures', ['isEnded']),
-  },
-  methods: {
-    ...mapActions('figures', ['resetFigures']),
-    ...mapActions('teeter', ['resetBalance']),
-    reset() {
-      this.resetFigures()
-      this.resetBalance()
-    }
-  }
+  data: () => ({
+    isEnded: false
+  }),
+  computed: {},
+  methods: {}
 }
 </script>
 
