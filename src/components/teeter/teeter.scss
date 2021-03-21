@@ -30,5 +30,16 @@
   position: relative;
   width: 100%;
   height: auto;
+  display: flex;
   transition: all 1s ease;
+  .tt-figure-side {
+    position: relative;
+    margin-right: 60px;
+    &__left {
+      width: 50%;
+    }
+    &__right {
+      width: 50%;
+    }
+  }
 }
